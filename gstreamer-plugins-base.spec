@@ -1,17 +1,17 @@
 %include        /usr/lib/rpm/macros.gstreamer
 
 %define		gstname		gst-plugins-base
-%define		gst_major_ver	0.10
-%define		gst_req_ver	0.10.36
+%define		gst_major_ver	1.0
+%define		gst_req_ver	1.0.2
 
 Summary:	GStreamer Streaming-media framework base plugins
 Name:		gstreamer-plugins-base
-Version:	0.10.36
-Release:	4
+Version:	1.0.2
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	3d2337841b132fe996e5eb2396ac9438
+# Source0-md5:	57cff96bfbb5e6f06c4226b141e1f990
 Patch0:		%{name}-default-cd-speed.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -89,7 +89,6 @@ patch -p0 < common/gettext.patch
 %{__automake}
 %configure \
 	--disable-examples	\
-	--disable-gnome_vfs 	\
 	--disable-silent-rules	\
 	--disable-static	\
 	--enable-experimental	\
@@ -110,14 +109,13 @@ rm -f $RPM_BUILD_ROOT%{gstlibdir}/*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	libs -p /sbin/ldconfig
-%postun	libs -p /sbin/ldconfig
+%post	libs -p /usr/sbin/ldconfig
+%postun	libs -p /usr/sbin/ldconfig
 
 %files -f %{gstname}-%{gst_major_ver}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README RELEASE
 %attr(755,root,root) %{_bindir}/gst-discoverer-*
-%attr(755,root,root) %{_bindir}/gst-visualise-*
 %attr(755,root,root) %{gstlibdir}/libgstadder.so
 %attr(755,root,root) %{gstlibdir}/libgstalsa.so
 %attr(755,root,root) %{gstlibdir}/libgstapp.so
@@ -126,20 +124,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstaudioresample.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiotestsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstcdparanoia.so
-%attr(755,root,root) %{gstlibdir}/libgstdecodebin.so
-%attr(755,root,root) %{gstlibdir}/libgstdecodebin2.so
 %attr(755,root,root) %{gstlibdir}/libgstencodebin.so
-%attr(755,root,root) %{gstlibdir}/libgstffmpegcolorspace.so
-%attr(755,root,root) %{gstlibdir}/libgstgdp.so
 %attr(755,root,root) %{gstlibdir}/libgstgio.so
 %attr(755,root,root) %{gstlibdir}/libgstlibvisual.so
 %attr(755,root,root) %{gstlibdir}/libgstogg.so
 %attr(755,root,root) %{gstlibdir}/libgstpango.so
-%attr(755,root,root) %{gstlibdir}/libgstplaybin.so
+%attr(755,root,root) %{gstlibdir}/libgstplayback.so
 %attr(755,root,root) %{gstlibdir}/libgstsubparse.so
 %attr(755,root,root) %{gstlibdir}/libgsttcp.so
 %attr(755,root,root) %{gstlibdir}/libgsttheora.so
 %attr(755,root,root) %{gstlibdir}/libgsttypefindfunctions.so
+%attr(755,root,root) %{gstlibdir}/libgstvideoconvert.so
 %attr(755,root,root) %{gstlibdir}/libgstvideorate.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoscale.so
 %attr(755,root,root) %{gstlibdir}/libgstvideotestsrc.so
@@ -147,7 +142,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstvorbis.so
 %attr(755,root,root) %{gstlibdir}/libgstximagesink.so
 %attr(755,root,root) %{gstlibdir}/libgstxvimagesink.so
-%{_mandir}/man1/gst-visualise-*.1*
+%{_mandir}/man1/gst-discoverer-*.1*
 
 %files libs
 %defattr(644,root,root,755)
@@ -161,11 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*-%{gst_major_ver}.la
 %{gstincludedir}/gst/app
 %{gstincludedir}/gst/audio
-%{gstincludedir}/gst/cdda
 %{gstincludedir}/gst/fft
-%{gstincludedir}/gst/floatcast
-%{gstincludedir}/gst/interfaces
-%{gstincludedir}/gst/netbuffer
 %{gstincludedir}/gst/pbutils
 %{gstincludedir}/gst/riff
 %{gstincludedir}/gst/rtp
@@ -173,21 +164,17 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/sdp
 %{gstincludedir}/gst/tag
 %{gstincludedir}/gst/video
-%{_pkgconfigdir}/gstreamer-app-0.10.pc
-%{_pkgconfigdir}/gstreamer-audio-0.10.pc
-%{_pkgconfigdir}/gstreamer-cdda-0.10.pc
-%{_pkgconfigdir}/gstreamer-fft-0.10.pc
-%{_pkgconfigdir}/gstreamer-floatcast-0.10.pc
-%{_pkgconfigdir}/gstreamer-interfaces-0.10.pc
-%{_pkgconfigdir}/gstreamer-netbuffer-0.10.pc
-%{_pkgconfigdir}/gstreamer-pbutils-0.10.pc
-%{_pkgconfigdir}/gstreamer-plugins-base-0.10.pc
-%{_pkgconfigdir}/gstreamer-riff-0.10.pc
-%{_pkgconfigdir}/gstreamer-rtp-0.10.pc
-%{_pkgconfigdir}/gstreamer-rtsp-0.10.pc
-%{_pkgconfigdir}/gstreamer-sdp-0.10.pc
-%{_pkgconfigdir}/gstreamer-tag-0.10.pc
-%{_pkgconfigdir}/gstreamer-video-0.10.pc
+%{_pkgconfigdir}/gstreamer-app-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-audio-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-fft-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-pbutils-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-plugins-base-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-riff-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-rtp-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-rtsp-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-sdp-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-tag-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-video-%{gst_major_ver}.pc
 %{_datadir}/gir-1.0/*.gir
 
 %files apidocs
