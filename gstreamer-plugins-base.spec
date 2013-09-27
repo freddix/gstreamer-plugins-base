@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.0.10
+%define		gst_req_ver	1.2.0
 
 Summary:	GStreamer Streaming-media framework base plugins
 Name:		gstreamer-plugins-base
-Version:	1.0.10
+Version:	1.2.0
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	ffbca3265343cd66092b28286199b795
+# Source0-md5:	d0f7bb7f6c781be127902bff89b87c5c
 Patch0:		%{name}-default-cd-speed.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -19,7 +19,6 @@ BuildRequires:	automake
 BuildRequires:	glib-devel
 BuildRequires:	gobject-introspection-devel
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
-BuildRequires:	gtk+-devel
 BuildRequires:	gtk-doc
 BuildRequires:	libtool
 BuildRequires:	orc-devel >= 0.4.5
@@ -116,6 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README RELEASE
 %attr(755,root,root) %{_bindir}/gst-discoverer-*
+%attr(755,root,root) %{_bindir}/gst-play-1.0
 %attr(755,root,root) %{gstlibdir}/libgstadder.so
 %attr(755,root,root) %{gstlibdir}/libgstalsa.so
 %attr(755,root,root) %{gstlibdir}/libgstapp.so
@@ -143,6 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstximagesink.so
 %attr(755,root,root) %{gstlibdir}/libgstxvimagesink.so
 %{_mandir}/man1/gst-discoverer-*.1*
+%{_mandir}/man1/gst-play-*.1*
 
 %files libs
 %defattr(644,root,root,755)
@@ -153,7 +154,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*-%{gst_major_ver}.so
-%{_libdir}/lib*-%{gst_major_ver}.la
+%{gstincludedir}/gst/allocators
 %{gstincludedir}/gst/app
 %{gstincludedir}/gst/audio
 %{gstincludedir}/gst/fft
@@ -164,6 +165,7 @@ rm -rf $RPM_BUILD_ROOT
 %{gstincludedir}/gst/sdp
 %{gstincludedir}/gst/tag
 %{gstincludedir}/gst/video
+%{_pkgconfigdir}/gstreamer-allocators-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-app-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-audio-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-fft-%{gst_major_ver}.pc
