@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.2.4
+%define		gst_req_ver	1.4.3
 
 Summary:	GStreamer Streaming-media framework base plugins
 Name:		gstreamer-plugins-base
-Version:	1.2.4
+Version:	1.4.3
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	278e0a1872ecb981e91830b2cb7f3e98
+# Source0-md5:	d8facf3be279585f3ad2e764540376f7
 Patch0:		%{name}-default-cd-speed.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -91,7 +91,9 @@ patch -p0 < common/gettext.patch
 	--disable-silent-rules	\
 	--disable-static	\
 	--enable-experimental	\
-	--with-html-dir=%{_gtkdocdir}
+	--with-html-dir=%{_gtkdocdir}		    \
+	--with-package-name="GStreamer (Freddix)"   \
+	--with-package-origin="http://freddix.org/"
 %{__make}
 
 %install
@@ -100,7 +102,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# We don't need plugins' *.la files
 %{__rm} $RPM_BUILD_ROOT%{gstlibdir}/*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
@@ -117,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README RELEASE
 %attr(755,root,root) %{_bindir}/gst-discoverer-*
 %attr(755,root,root) %{_bindir}/gst-play-1.0
+%attr(755,root,root) %{_bindir}/gst-device-monitor-1.0
+
 %attr(755,root,root) %{gstlibdir}/libgstadder.so
 %attr(755,root,root) %{gstlibdir}/libgstalsa.so
 %attr(755,root,root) %{gstlibdir}/libgstapp.so
@@ -143,6 +146,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstvorbis.so
 %attr(755,root,root) %{gstlibdir}/libgstximagesink.so
 %attr(755,root,root) %{gstlibdir}/libgstxvimagesink.so
+%{_mandir}/man1/gst-device-monitor-1.*
 %{_mandir}/man1/gst-discoverer-*.1*
 %{_mandir}/man1/gst-play-*.1*
 
