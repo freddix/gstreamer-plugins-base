@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-base
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.4.3
+%define		gst_req_ver	1.4.4
 
 Summary:	GStreamer Streaming-media framework base plugins
 Name:		gstreamer-plugins-base
-Version:	1.4.3
+Version:	1.4.4
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-base/%{gstname}-%{version}.tar.xz
-# Source0-md5:	d8facf3be279585f3ad2e764540376f7
+# Source0-md5:	0c42eca8f9e4efd56d2ce8e9249ce4a1
 Patch0:		%{name}-default-cd-speed.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -75,7 +75,7 @@ Requires:	gtk-doc-common
 GStreamer plugins API documentation.
 
 %prep
-%setup -q -n %{gstname}-%{version}
+%setup -qn %{gstname}-%{version}
 %patch0 -p1
 
 %build
